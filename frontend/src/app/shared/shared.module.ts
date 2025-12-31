@@ -14,14 +14,15 @@ import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   providers: [UserService],
   declarations: [NotFoundComponent, HeaderComponent],
   imports: [
     RouterModule,
     PrimengModule,
-    CommonModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule
   ],
   exports: [
