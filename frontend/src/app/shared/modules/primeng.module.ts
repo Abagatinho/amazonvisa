@@ -17,6 +17,8 @@ import { ChipsModule } from 'primeng/chips';
 import { PanelModule } from 'primeng/panel';
 import { SkeletonModule } from 'primeng/skeleton';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   providers: [],
@@ -39,6 +41,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     TableModule,
     PanelModule,
     SkeletonModule,
+    InputSwitchModule,
+    TooltipModule,
   ],
   exports: [
     ButtonModule,
@@ -58,6 +62,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     TableModule,
     PanelModule,
     SkeletonModule,
+    InputSwitchModule,
+    TooltipModule,
   ],
 })
 export class PrimengModule {}

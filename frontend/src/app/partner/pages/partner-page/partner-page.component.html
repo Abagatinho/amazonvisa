@@ -1,0 +1,103 @@
+<app-header></app-header>
+<div partner-page>
+  <main>
+    <h2>Bem-vindo, {{ partnerName }}!</h2>
+
+    <div class="flex justify-content-between align-items-center mb-3">
+      <h3>Meus Anúncios</h3>
+      <button
+        pButton
+        type="button"
+        label="Novo Anúncio"
+        icon="pi pi-plus"
+        routerLink="/partner/ad"
+      ></button>
+    </div>
+
+    <p-table
+      #dt
+      [value]="ads"
+      [rows]="10"
+      responsiveLayout="scroll"
+      [paginator]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      styleClass="p-datatable-striped"
+      currentPageReportTemplate="Exibindo {first} até {last} de {totalRecords}"
+    >
+      <ng-template pTemplate="header">
+        <tr [style]="{ fontWeight: 'bold' }">
+          <th>Tipo</th>
+          <th>Descrição</th>
+          <th>Status</th>
+          <th>Criado em</th>
+          <th>Ações</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-ad>
+        <tr>
+          <td>
+            <i
+              class="pi"
+              [ngClass]="{
+                'pi-image': ad.type === 'image',
+                'pi-align-left': ad.type === 'text'
+              }"
+            ></i>
+            {{ ad.type === 'image' ? 'Imagem' : 'Texto' }}
+          </td>
+          <td>{{ ad.description }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [ngClass]="{
+                'status-active': ad.isActive,
+                'status-inactive': !ad.isActive
+              }"
+            >
+              {{ ad.isActive ? 'Ativo' : 'Inativo' }}
+            </span>
+          </td>
+          <td>{{ ad.createdAt }}</td>
+          <td class="flex gap-2">
+            <button
+              pButton
+              type="button"
+              [icon]="ad.isActive ? 'pi pi-eye-slash' : 'pi pi-eye'"
+              class="p-button-rounded p-button-text"
+              [pTooltip]="ad.isActive ? 'Desativar' : 'Ativar'"
+              (click)="toggleAdStatus(ad)"
+            ></button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text"
+              pTooltip="Editar"
+              [routerLink]="['/partner/ad', ad.id]"
+            ></button>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              pTooltip="Excluir"
+              (click)="deleteAd(ad)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="text-center">
+            Nenhum anúncio cadastrado.
+            <a routerLink="/partner/ad">Criar primeiro anúncio</a>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </main>
+</div>

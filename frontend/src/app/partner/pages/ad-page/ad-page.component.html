@@ -1,0 +1,131 @@
+<app-header></app-header>
+<main>
+  <h2>{{ isEditMode ? 'Editar Anúncio' : 'Novo Anúncio' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="ad-form">
+    <div class="form-section">
+      <h3>Tipo de Anúncio</h3>
+      <div class="flex gap-3">
+        <div *ngFor="let adType of adTypes" class="flex align-items-center">
+          <p-radioButton
+            [inputId]="adType.value"
+            [value]="adType.value"
+            formControlName="type"
+          ></p-radioButton>
+          <label [for]="adType.value" class="ml-2">{{ adType.label }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section" *ngIf="selectedType === 'image'">
+      <h3>Imagem do Anúncio</h3>
+      <div class="flex flex-column gap-2">
+        <label for="imageUrl">URL da Imagem</label>
+        <input
+          id="imageUrl"
+          type="text"
+          pInputText
+          formControlName="imageUrl"
+          placeholder="https://exemplo.com/imagem.jpg"
+        />
+      </div>
+
+      <div class="preview-section mt-3" *ngIf="form.get('imageUrl')?.value">
+        <h4>Preview</h4>
+        <img
+          [src]="form.get('imageUrl')?.value"
+          alt="Preview do anúncio"
+          class="preview-image"
+        />
+      </div>
+    </div>
+
+    <div class="form-section" *ngIf="selectedType === 'text'">
+      <h3>Texto do Anúncio</h3>
+      <div class="flex flex-column gap-2">
+        <label for="adText">Conteúdo do Anúncio</label>
+        <textarea
+          id="adText"
+          rows="4"
+          pInputTextarea
+          formControlName="adText"
+          placeholder="Digite o texto do seu anúncio..."
+          [autoResize]="true"
+        ></textarea>
+      </div>
+
+      <div class="preview-section mt-3" *ngIf="form.get('adText')?.value">
+        <h4>Preview</h4>
+        <div class="preview-text">
+          {{ form.get('adText')?.value }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Informações do Anúncio</h3>
+      <div class="flex flex-column gap-2 mb-3">
+        <label for="description">Descrição (uso interno)</label>
+        <input
+          id="description"
+          type="text"
+          pInputText
+          formControlName="description"
+          placeholder="Ex: Promoção de Natal 2024"
+        />
+      </div>
+
+      <div class="grid">
+        <div class="col-6">
+          <div class="flex flex-column gap-2">
+            <label for="contactPhone">Telefone de Contato</label>
+            <p-inputMask
+              id="contactPhone"
+              mask="(99) 9999-9999"
+              formControlName="contactPhone"
+              placeholder="(00) 0000-0000"
+            ></p-inputMask>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="flex flex-column gap-2">
+            <label for="contactEmail">E-mail de Contato</label>
+            <input
+              id="contactEmail"
+              type="email"
+              pInputText
+              formControlName="contactEmail"
+              placeholder="contato@empresa.com"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Status</h3>
+      <div class="flex align-items-center gap-2">
+        <p-inputSwitch formControlName="isActive"></p-inputSwitch>
+        <label>{{ form.get('isActive')?.value ? 'Anúncio Ativo' : 'Anúncio Inativo' }}</label>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-4">
+      <button
+        pButton
+        type="submit"
+        label="Salvar"
+        icon="pi pi-check"
+        [disabled]="!form.valid"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Cancelar"
+        icon="pi pi-times"
+        class="p-button-secondary"
+        (click)="onCancel()"
+      ></button>
+    </div>
+  </form>
+</main>

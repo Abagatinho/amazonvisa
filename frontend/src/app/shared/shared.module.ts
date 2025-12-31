@@ -9,24 +9,25 @@ import { PrimengModule } from './modules/primeng.module';
 
 // Components
 import { NotFoundComponent } from './components/not-found/not-found.component';
-import { ShowRoutesComponent } from './components/show-routes/show-routes.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   providers: [UserService],
-  declarations: [NotFoundComponent, ShowRoutesComponent, HeaderComponent],
+  declarations: [NotFoundComponent, HeaderComponent],
   imports: [
     RouterModule,
     PrimengModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
     RouterModule,
-    ShowRoutesComponent,
     PrimengModule,
     FormsModule,
     ReactiveFormsModule

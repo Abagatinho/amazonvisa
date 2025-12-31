@@ -1,0 +1,63 @@
+<app-header></app-header>
+<main>
+  <div class="header">
+    <h2>Painel Amazonvisa</h2>
+
+    <h3>Caixa {{ moneyBox | currency: "BRL" }}</h3>
+  </div>
+
+  <div class=".main" role="main">
+    <p-table
+      #dt
+      [value]="users"
+      responsiveLayout="scroll"
+      dataKey="id"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [paginator]="true"
+      currentPageReportTemplate="Exibindo {first} de {last} dos {totalRecords}"
+      [globalFilterFields]="['status', 'name', 'payment']"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex">
+          <span class="p-input-icon-left ml-auto">
+            <input
+              pInputText
+              type="text"
+              placeholder="Procurar afiliado"
+              (input)="applyFilterGlobal($event, 'contains')"
+            />
+          </span>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr [style]="{ fontWeight: 'bold' }">
+          <th>Nome</th>
+          <th>Situação</th>
+          <th>Pagamento</th>
+          <th style="width: 4rem">Entrar</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.status }}</td>
+          <td>{{ user.payment }}</td>
+          <td>
+            <button
+              [routerLink]="'/system/info'"
+              type="button"
+              pButton
+              icon="pi pi-caret-right"
+              pRipple
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</main>
+
